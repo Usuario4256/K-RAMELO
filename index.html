@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>K-RAMELO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="images/2.png">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:400,700%7COpen+Sans:400,600,700%7CSource+Code+Pro:300,400,500,600,700,900%7CNothing+You+Could+Do%7CPoppins:400,500">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      .ie-panel{display:none;background:#212121;padding:10px 0;box-shadow:3px 3px 5px 0 rgba(0,0,0,.3);clear:both;text-align:center;position:relative;z-index:1;}
+      html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel{display:block;}
+
+      /* ── VIDEO BACKGROUND ── */
+      #bg-video-wrap {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      #bg-video-wrap::after {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(5,5,15,0.72) 0%,
+          rgba(5,5,15,0.55) 40%,
+          rgba(5,5,15,0.72) 100%
+        );
+        z-index: 1;
+      }
+      #bg-video {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%; min-height: 100%;
+        width: auto; height: auto;
+        object-fit: cover;
+        filter: saturate(0.8) brightness(0.65);
+      }
+      .page { position: relative; z-index: 1; }
+
+      /* =============================================
+         ANIMATED GALLERY SLIDER — HERO SECTION
+         ============================================= */
+      :root {
+        --sl-bg: #080808;
+        --sl-accent: #ff3c3c;
+        --sl-text: #f0ece4;
+        --sl-muted: rgba(240,236,228,0.4);
+        --slide-w: min(62vw, 680px);
+        --slide-h: min(85vw, 820px);
+      }
+
+      #slider-hero {
+        position: relative;
+        width: 100%;
+        padding-top: 120px;
+        padding-bottom: 60px;
+        min-height: 110vh;
+        background: var(--sl-bg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: none;
+        gap: 2.5rem;
+      }
+
+      /* Hero heading above slider */
+      #sl-hero-text {
+        text-align: center;
+        z-index: 10;
+        perspective: 1000px;
+      }
+
+      /* ── EYEBROW letra a letra ── */
+      #sl-hero-text .sl-eyebrow {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--sl-accent);
+        margin-bottom: 0.6rem;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .ey-char {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(-18px);
+        animation: eyCharDrop 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+      }
+      .ey-space { width: 0.35em; }
+
+      @keyframes eyCharDrop {
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── TÍTULO PRINCIPAL ── */
+      #sl-hero-text h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(3.5rem, 10vw, 8rem);
+        letter-spacing: 0.06em;
+        line-height: 0.9;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 0.2em;
+        perspective: 1200px;
+      }
+
+      .ht-word { display: inline-flex; }
+      .ht-space { display: inline-block; width: 0.25em; }
+
+      /* Cada letra entra volando en 3D */
+      .ht-char {
+        display: inline-block;
+        opacity: 0;
+        color: var(--sl-text);
+        text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+        transform: perspective(600px) rotateY(-90deg) translateZ(60px);
+        animation: htFlipIn 0.65s cubic-bezier(0.16,1,0.3,1) forwards;
+        animation-delay: calc(0.35s + var(--i) * 0.07s);
+        position: relative;
+      }
+
+      /* LIUM en rojo */
+      .ht-word--red .ht-char {
+        color: var(--sl-accent);
+        text-shadow:
+          0 0 40px rgba(255,60,60,0.6),
+          0 0 80px rgba(255,60,60,0.3),
+          0 4px 40px rgba(0,0,0,0.8);
+        transform: perspective(600px) rotateY(90deg) translateZ(60px);
+      }
+
+      @keyframes htFlipIn {
+        0%   { opacity: 0; }
+        10%  { opacity: 1; }
+        100% { opacity: 1; transform: perspective(600px) rotateY(0deg) translateZ(0); }
+      }
+
+      /* Respiración continua del título completo */
+      #heroTitle {
+        animation: titleBreathe 4s 1.5s ease-in-out infinite;
+      }
+      @keyframes titleBreathe {
+        0%,100% { filter: brightness(1) drop-shadow(0 0 0px transparent); }
+        50%     { filter: brightness(1.12) drop-shadow(0 0 18px rgba(240,236,228,0.18)); }
+      }
+
+      /* Glitch en FORTA — blanco con sombra dorada */
+      .ht-word--white {
+        position: relative;
+        animation: fortaGlitch 4s 2.2s steps(1) infinite;
+      }
+      .ht-word--white::before,
+      .ht-word--white::after {
+        content: 'FORTA';
+        position: absolute;
+        top: 0; left: 0;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1em;
+        letter-spacing: inherit;
+        pointer-events: none;
+      }
+      .ht-word--white::before {
+        color: #FFD700;
+        animation: fortaGlitchB 4s 2.2s steps(1) infinite;
+        opacity: 0;
+      }
+      .ht-word--white::after {
+        color: #ff3c3c;
+        animation: fortaGlitchA 4s 2.2s steps(1) infinite;
+        opacity: 0;
+      }
+      @keyframes fortaGlitch {
+        0%,77%,100% { transform: none; }
+        78% { transform: translateX(5px) skewX(5deg); }
+        80% { transform: translateX(-4px) skewX(-3deg); }
+        82% { transform: translateX(2px); }
+        83% { transform: none; }
+        91% { transform: translateX(-3px) skewX(-2deg); }
+        93% { transform: none; }
+      }
+      @keyframes fortaGlitchA {
+        0%,77%,100% { opacity: 0; }
+        78% { opacity: 0.7; transform: translateX(-6px); clip-path: inset(0 0 50% 0); }
+        79% { opacity: 0; }
+        83% { opacity: 0.5; transform: translateX(5px); clip-path: inset(45% 0 0 0); }
+        85% { opacity: 0.3; clip-path: inset(15% 0 45% 0); }
+        86% { opacity: 0; }
+        91% { opacity: 0.45; transform: translateX(-3px); clip-path: inset(65% 0 0 0); }
+        92% { opacity: 0; }
+      }
+      @keyframes fortaGlitchB {
+        0%,77%,100% { opacity: 0; }
+        78% { opacity: 0.55; transform: translateX(7px); clip-path: inset(30% 0 30% 0); }
+        80% { opacity: 0.3; clip-path: inset(5% 0 60% 0); }
+        81% { opacity: 0; }
+        87% { opacity: 0.4; transform: translateX(-5px); clip-path: inset(55% 0 10% 0); }
+        89% { opacity: 0; }
+      }
+
+      /* Pulso de brillo continuo en FORTA */
+      .ht-word--white .ht-char {
+        animation: htFlipIn 0.65s cubic-bezier(0.16,1,0.3,1) forwards,
+                   fortaBreath 3s calc(1.5s + var(--i) * 0.12s) ease-in-out infinite;
+      }
+      @keyframes fortaBreath {
+        0%,100% { text-shadow: 0 4px 40px rgba(0,0,0,0.8); }
+        50%     { text-shadow: 0 0 20px rgba(240,236,228,0.5), 0 0 50px rgba(240,236,228,0.15), 0 4px 40px rgba(0,0,0,0.8); }
+      }
+
+      /* Glitch aleatorio en LIUM — más frecuente y potente */
+      .ht-word--red {
+        position: relative;
+        animation: liumGlitch 3.5s 1.8s steps(1) infinite;
+      }
+      .ht-word--red::before,
+      .ht-word--red::after {
+        content: 'LIUM';
+        position: absolute;
+        top: 0; left: 0;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1em;
+        letter-spacing: inherit;
+        pointer-events: none;
+      }
+      .ht-word--red::before {
+        color: #00e5ff;
+        animation: liumGlitchB 3.5s 1.8s steps(1) infinite;
+        opacity: 0;
+      }
+      .ht-word--red::after {
+        color: #fff;
+        animation: liumGlitchA 3.5s 1.8s steps(1) infinite;
+        opacity: 0;
+      }
+      @keyframes liumGlitch {
+        0%,74%,100% { transform: none; }
+        75% { transform: translateX(-4px) skewX(-6deg); }
+        77% { transform: translateX(5px) skewX(3deg); }
+        79% { transform: translateX(-2px) skewX(-1deg); }
+        81% { transform: none; }
+        88% { transform: translateX(-3px); }
+        90% { transform: none; }
+      }
+      @keyframes liumGlitchA {
+        0%,74%,100% { opacity: 0; }
+        75% { opacity: 0.75; transform: translateX(6px); clip-path: inset(0 0 55% 0); }
+        76% { opacity: 0; }
+        80% { opacity: 0.5; transform: translateX(-4px); clip-path: inset(50% 0 0 0); }
+        82% { opacity: 0.3; clip-path: inset(20% 0 40% 0); }
+        83% { opacity: 0; }
+        88% { opacity: 0.4; transform: translateX(3px); clip-path: inset(70% 0 0 0); }
+        89% { opacity: 0; }
+      }
+      @keyframes liumGlitchB {
+        0%,74%,100% { opacity: 0; }
+        75% { opacity: 0.6; transform: translateX(-7px); clip-path: inset(35% 0 25% 0); }
+        77% { opacity: 0.3; clip-path: inset(10% 0 65% 0); }
+        78% { opacity: 0; }
+        85% { opacity: 0.45; transform: translateX(4px); clip-path: inset(60% 0 5% 0); }
+        87% { opacity: 0; }
+      }
+
+      /* Sub-texto + pulso continuo */
+      #heroSub {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 300;
+        color: var(--sl-muted);
+        margin-top: 0.8rem;
+        letter-spacing: 0.08em;
+        opacity: 0;
+        transform: translateY(12px);
+        animation:
+          subReveal 0.7s calc(0.35s + 9 * 0.07s + 0.3s) cubic-bezier(0.16,1,0.3,1) forwards,
+          subPulse  3.5s calc(0.35s + 9 * 0.07s + 1.2s)  ease-in-out infinite;
+      }
+      @keyframes subReveal {
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes subPulse {
+        0%,100% { opacity: 0.4; letter-spacing: 0.08em; }
+        50%     { opacity: 0.85; letter-spacing: 0.13em; }
+      }
+
+      /* Eyebrow pulso continuo después de entrada */
+      #sl-hero-text .sl-eyebrow {
+        animation: eyebrowPulse 4s 1.2s ease-in-out infinite;
+      }
+      @keyframes eyebrowPulse {
+        0%,100% {
+          color: rgba(255,60,60,0.55);
+          text-shadow: none;
+          letter-spacing: 0.35em;
+        }
+        50% {
+          color: rgba(255,60,60,1);
+          text-shadow: 0 0 16px rgba(255,60,60,0.5), 0 0 40px rgba(255,60,60,0.2);
+          letter-spacing: 0.42em;
+        }
+      }
+      /* Asegurar que los ey-char sean visibles siempre */
+      .ey-char {
+        animation: eyCharDrop 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+      }
+
+      /* grain overlay */
+      #slider-hero::after {
+        content: '';
+        position: absolute; inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        background-size: 200px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 2;
+      }
+      /* ambient glow behind active slide */
+      #slider-hero::before {
+        content: '';
+        position: absolute;
+        bottom: 10%; left: 50%;
+        transform: translateX(-50%);
+        width: 60vw; height: 40vh;
+        background: radial-gradient(ellipse, rgba(255,60,60,0.12) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+        filter: blur(40px);
+      }
+
+      /* ── GOLD PARTICLE CURSOR ── */
+      * { cursor: none !important; }
+
+      #sl-cursor {
+        position: fixed;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        top: 0; left: 0;
+      }
+      #sl-cursor .cur-dot {
+        width: 10px; height: 10px;
+        background: #FFD700;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #FFD700, 0 0 22px rgba(255,215,0,0.6);
+        transition: transform 0.15s ease;
+      }
+      #sl-cursor .cur-ring {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 36px; height: 36px;
+        border: 1.5px solid rgba(255,215,0,0.5);
+        border-radius: 50%;
+        transform: translate(-50%,-50%);
+        transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+      }
+      #sl-cursor.clicking .cur-dot  { transform: scale(0.6); }
+      #sl-cursor.clicking .cur-ring { width: 50px; height: 50px; border-color: #FFD700; }
+      #sl-cursor.hovering .cur-ring { width: 52px; height: 52px; border-color: #FFD700; border-width: 2px; }
+      #sl-cursor.hovering .cur-dot  { background: #fff; box-shadow: 0 0 14px #FFD700; }
+
+      #particle-canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 99998;
+      }
+
+      /* Slider header overlay */
+      #sl-header {
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        padding: 1.8rem 3rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .sl-logo {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        letter-spacing: 0.14em;
+        color: var(--sl-text);
+        text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      }
+      .sl-counter {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        color: var(--sl-muted);
+        text-transform: uppercase;
+        line-height: 1;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+      }
+      .sl-counter strong { color: var(--sl-text); font-weight: 300; font-size: 1.05rem; }
+
+      /* Track */
+      .sl-track {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        user-select: none;
+        cursor: none;
+        position: relative;
+        z-index: 3;
+      }
+
+      /* Slide */
+      .sl-slide {
+        position: relative;
+        width: var(--slide-w);
+        height: var(--slide-h);
+        flex-shrink: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.65s cubic-bezier(0.16,1,0.3,1),
+                    filter 0.65s ease,
+                    opacity 0.65s ease,
+                    box-shadow 0.65s ease;
+      }
+      .sl-slide:not(.active) {
+        transform: scale(0.85);
+        filter: grayscale(0.3) brightness(0.7);
+        opacity: 0.75;
+      }
+      .sl-slide.active {
+        transform: scale(1);
+        filter: brightness(1.08) contrast(1.05) saturate(1.1);
+        opacity: 1;
+        box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), 0 0 60px rgba(255,60,60,0.15);
+      }
+      .sl-slide img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        pointer-events: none;
+      }
+      .sl-slide.active img {
+        animation: kenBurns 7s ease-in-out alternate infinite;
+      }
+      @keyframes kenBurns {
+        from { transform: scale(1) translate(0,0); }
+        to   { transform: scale(1.08) translate(-2%,-1%); }
+      }
+
+      .sl-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(155deg, transparent 55%, rgba(10,10,10,0.55) 100%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .sl-slide.active .sl-overlay { opacity: 1; }
+
+      .sl-line {
+        position: absolute;
+        top: 1.8rem; right: 1.8rem;
+        width: 38px; height: 2px;
+        background: var(--sl-accent);
+        transform-origin: right;
+        transform: scaleX(0);
+        transition: transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s;
+      }
+      .sl-slide.active .sl-line { transform: scaleX(1); }
+
+      .sl-info {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 1.8rem 2.2rem;
+        transform: translateY(14px);
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.16,1,0.3,1) 0.12s;
+        font-family: 'DM Sans', sans-serif;
+      }
+      .sl-slide.active .sl-info { transform: translateY(0); opacity: 1; }
+
+      .sl-cat {
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--sl-accent);
+        margin-bottom: 0.35rem;
+      }
+      .sl-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+        letter-spacing: 0.05em;
+        line-height: 1;
+        color: var(--sl-text);
+      }
+      .sl-desc {
+        margin-top: 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 300;
+        color: var(--sl-muted);
+        max-width: 320px;
+        line-height: 1.6;
+      }
+
+      /* Nav */
+      #sl-nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+        z-index: 10;
+        animation: slUp 0.8s 0.3s ease both;
+        margin-top: 0.5rem;
+      }
+      .sl-btn {
+        width: 44px; height: 44px;
+        border: 1px solid rgba(240,236,228,0.15);
+        background: rgba(240,236,228,0.04);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        cursor: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(4px);
+        color: var(--sl-text);
+      }
+      .sl-btn:hover { border-color: var(--sl-accent); background: rgba(255,60,60,0.12); }
+      .sl-btn:hover svg { stroke: var(--sl-accent); }
+      .sl-btn svg { stroke: var(--sl-text); transition: stroke 0.3s; }
+
+      .sl-dots { display: flex; gap: 8px; align-items: center; }
+      .sl-dot {
+        width: 5px; height: 5px;
+        border-radius: 50%;
+        background: var(--sl-muted);
+        cursor: none;
+        transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+      }
+      .sl-dot.active { width: 22px; border-radius: 3px; background: var(--sl-accent); }
+
+      /* Progress bar */
+      #sl-progress {
+        position: absolute;
+        bottom: 0; left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--sl-accent), #ff8c42);
+        z-index: 10;
+        box-shadow: 0 0 12px var(--sl-accent);
+        transition: width 0.05s linear;
+      }
+
+      /* Hint */
+      .sl-hint {
+        position: absolute;
+        right: 2.5rem; bottom: 2rem;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--sl-muted);
+        writing-mode: vertical-lr;
+        z-index: 10;
+        transition: opacity 1s;
+      }
+      .sl-hint.hidden { opacity: 0; }
+
+      @keyframes slUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* =============================================
+         REST OF PAGE — tweak spacing
+         ============================================= */
+      .section.section-lg { padding-top: 60px; }
+
+      /* =============================================
+         NAVBAR BUTTONS — MODO CHIMBA
+         ============================================= */
+      .nav-chimba {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-btn-chimba {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.55rem 1.3rem;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 1.05rem !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: rgba(240,236,228,0.7) !important;
+        text-decoration: none !important;
+        border: none;
+        background: transparent;
+        overflow: hidden;
+        transition: color 0.3s ease;
+        cursor: none;
+      }
+
+      /* Línea inferior animada */
+      .nav-btn-chimba::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 1.3rem; right: 1.3rem;
+        height: 2px;
+        background: linear-gradient(90deg, #ff3c3c, #ff8c42);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+        box-shadow: 0 0 10px #ff3c3c, 0 0 20px rgba(255,60,60,0.4);
+        border-radius: 1px;
+      }
+
+      /* Borde izquierdo acento */
+      .nav-btn-chimba::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 20%; bottom: 20%;
+        width: 2px;
+        background: #ff3c3c;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.3s cubic-bezier(0.16,1,0.3,1) 0.05s;
+        box-shadow: 0 0 8px #ff3c3c;
+        border-radius: 1px;
+      }
+
+      .nav-btn-chimba:hover,
+      .rd-nav-item.active .nav-btn-chimba {
+        color: #ffffff !important;
+      }
+
+      .nav-btn-chimba:hover::after,
+      .rd-nav-item.active .nav-btn-chimba::after {
+        transform: scaleX(1);
+      }
+
+      .nav-btn-chimba:hover::before,
+      .rd-nav-item.active .nav-btn-chimba::before {
+        transform: scaleY(1);
+      }
+
+      /* Label con efecto glitch al hover */
+      .nav-label {
+        position: relative;
+        display: inline-block;
+        transition: transform 0.25s ease;
+      }
+
+      .nav-btn-chimba:hover .nav-label {
+        animation: navGlitch 0.4s steps(2) 1;
+      }
+
+      @keyframes navGlitch {
+        0%   { clip-path: inset(0 0 80% 0); transform: translateX(-3px); color: #ff3c3c; }
+        25%  { clip-path: inset(40% 0 40% 0); transform: translateX(3px); color: #fff; }
+        50%  { clip-path: inset(80% 0 0% 0); transform: translateX(-2px); color: #ff8c42; }
+        75%  { clip-path: none; transform: translateX(1px); color: #fff; }
+        100% { clip-path: none; transform: translateX(0); color: #fff; }
+      }
+
+      /* Glow fondo al hover */
+      .nav-btn-chimba .nav-label::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        color: #ff3c3c;
+        filter: blur(6px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .nav-btn-chimba:hover .nav-label::before,
+      .rd-nav-item.active .nav-btn-chimba .nav-label::before {
+        opacity: 0.5;
+      }
+
+      /* Item activo — brillo permanente */
+      .rd-nav-item.active .nav-btn-chimba {
+        color: #ffffff !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser."></a></div>
+
+    <!-- ===================== LOADER CHIMBA ===================== -->
+    <div class="preloader" id="loader-chimba">
+      <div class="loader-corner corner-tl"></div>
+      <div class="loader-corner corner-tr"></div>
+      <div class="loader-corner corner-bl"></div>
+      <div class="loader-corner corner-br"></div>
+
+      <div class="loader-logo">
+        <div class="loader-eyebrow">K-RAMELO&bull; Loading</div>
+        <h1 class="loader-title" data-text="FOX">K-RAMELO</h1>
+        <div class="loader-sub"></div>
+      </div>
+
+      <div class="loader-eq">
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+        <div class="eq-bar"></div><div class="eq-bar"></div>
+      </div>
+
+      <div class="loader-progress-wrap">
+        <span class="loader-pct" id="loaderPct">0%</span>
+        <div class="loader-progress-track">
+          <div class="loader-progress-fill" id="loaderFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      /* ── LOADER CHIMBA ── */
+      #loader-chimba {
+        position: fixed;
+        inset: 0;
+        background: #050505;
+        z-index: 999999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        transition: opacity 0.4s ease;
+      }
+      #loader-chimba.loader-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      /* Grain */
+      #loader-chimba::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+        background-size: 200px;
+        opacity: 0.4;
+        pointer-events: none;
+      }
+      /* Scan line */
+      #loader-chimba::after {
+        content: '';
+        position: absolute;
+        top: -4px; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, #ff3c3c 30%, #ff8c42 50%, #ff3c3c 70%, transparent);
+        box-shadow: 0 0 20px #ff3c3c, 0 0 60px rgba(255,60,60,0.4);
+        animation: loaderScan 2.2s ease-in-out infinite;
+        pointer-events: none;
+      }
+      @keyframes loaderScan {
+        0%   { top: -4px; opacity: 0; }
+        5%   { opacity: 1; }
+        95%  { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+      }
+      /* Corners */
+      .loader-corner {
+        position: absolute;
+        width: 28px; height: 28px;
+        opacity: 0.5;
+      }
+      .loader-corner::before, .loader-corner::after {
+        content: ''; position: absolute; background: #ff3c3c;
+      }
+      .loader-corner::before { width: 100%; height: 2px; top: 0; }
+      .loader-corner::after  { width: 2px; height: 100%; top: 0; }
+      .corner-tl { top: 2rem; left: 2rem; }
+      .corner-tr { top: 2rem; right: 2rem; transform: scaleX(-1); }
+      .corner-bl { bottom: 2rem; left: 2rem; transform: scaleY(-1); }
+      .corner-br { bottom: 2rem; right: 2rem; transform: scale(-1); }
+      /* Logo */
+      .loader-logo { text-align: center; position: relative; z-index: 2; }
+      .loader-eyebrow {
+        font-family: 'DM Sans', 'Lato', sans-serif;
+        font-size: 0.6rem; letter-spacing: 0.5em;
+        text-transform: uppercase; color: #ff3c3c;
+        margin-bottom: 0.6rem;
+        animation: loaderFadeUp 0.6s 0.2s ease both;
+      }
+      .loader-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(4rem, 14vw, 9rem);
+        letter-spacing: 0.12em; color: #fff; line-height: 1;
+        position: relative; margin: 0;
+        animation: loaderFadeUp 0.7s 0.35s ease both;
+      }
+      .loader-title::before, .loader-title::after {
+        content: attr(data-text);
+        position: absolute; inset: 0;
+        font-family: 'Bebas Neue', sans-serif;
+      }
+      .loader-title::before {
+        color: #ff3c3c; clip-path: inset(20% 0 60% 0);
+        animation: loaderGlitch1 3.5s steps(1) infinite; opacity: 0.7;
+      }
+      .loader-title::after {
+        color: #00e5ff; clip-path: inset(60% 0 15% 0);
+        animation: loaderGlitch2 3.5s steps(1) infinite; opacity: 0.5;
+      }
+      @keyframes loaderGlitch1 {
+        0%,90%,100% { transform: translateX(0); opacity: 0; }
+        91% { transform: translateX(-4px); opacity: 0.7; clip-path: inset(10% 0 70% 0); }
+        93% { transform: translateX(4px); clip-path: inset(55% 0 20% 0); }
+        95% { transform: translateX(-2px); clip-path: inset(30% 0 45% 0); }
+        97% { transform: translateX(0); opacity: 0; }
+      }
+      @keyframes loaderGlitch2 {
+        0%,88%,100% { transform: translateX(0); opacity: 0; }
+        89% { transform: translateX(5px); opacity: 0.5; clip-path: inset(65% 0 10% 0); }
+        91% { transform: translateX(-3px); clip-path: inset(20% 0 60% 0); }
+        93% { transform: translateX(2px); clip-path: inset(45% 0 35% 0); }
+        95% { transform: translateX(0); opacity: 0; }
+      }
+      .loader-sub {
+        font-family: 'DM Sans', 'Lato', sans-serif;
+        font-size: 0.7rem; font-weight: 300; letter-spacing: 0.3em;
+        text-transform: uppercase; color: rgba(240,236,228,0.35);
+        margin-top: 0.5rem;
+        animation: loaderFadeUp 0.6s 0.5s ease both;
+      }
+      /* EQ Bars */
+      .loader-eq {
+        display: flex; align-items: flex-end; gap: 5px; height: 48px;
+        position: relative; z-index: 2;
+        animation: loaderFadeUp 0.6s 0.65s ease both;
+      }
+      .eq-bar {
+        width: 4px; border-radius: 2px 2px 0 0;
+        background: linear-gradient(to top, #ff3c3c, #ff8c42);
+        box-shadow: 0 0 6px rgba(255,60,60,0.5);
+        animation: eqBounce var(--dur) ease-in-out infinite alternate;
+        transform-origin: bottom;
+      }
+      .eq-bar:nth-child(1)  { --dur:.38s; height:20px; animation-delay:.00s }
+      .eq-bar:nth-child(2)  { --dur:.52s; height:32px; animation-delay:.07s }
+      .eq-bar:nth-child(3)  { --dur:.41s; height:44px; animation-delay:.14s }
+      .eq-bar:nth-child(4)  { --dur:.65s; height:28px; animation-delay:.05s }
+      .eq-bar:nth-child(5)  { --dur:.44s; height:48px; animation-delay:.20s }
+      .eq-bar:nth-child(6)  { --dur:.37s; height:36px; animation-delay:.11s }
+      .eq-bar:nth-child(7)  { --dur:.58s; height:48px; animation-delay:.03s }
+      .eq-bar:nth-child(8)  { --dur:.43s; height:40px; animation-delay:.17s }
+      .eq-bar:nth-child(9)  { --dur:.50s; height:26px; animation-delay:.08s }
+      .eq-bar:nth-child(10) { --dur:.39s; height:44px; animation-delay:.22s }
+      .eq-bar:nth-child(11) { --dur:.62s; height:32px; animation-delay:.13s }
+      .eq-bar:nth-child(12) { --dur:.46s; height:48px; animation-delay:.06s }
+      .eq-bar:nth-child(13) { --dur:.55s; height:20px; animation-delay:.18s }
+      .eq-bar:nth-child(14) { --dur:.40s; height:38px; animation-delay:.09s }
+      .eq-bar:nth-child(15) { --dur:.48s; height:30px; animation-delay:.25s }
+      .eq-bar:nth-child(16) { --dur:.36s; height:44px; animation-delay:.02s }
+      .eq-bar:nth-child(17) { --dur:.60s; height:22px; animation-delay:.16s }
+      .eq-bar:nth-child(18) { --dur:.42s; height:40px; animation-delay:.12s }
+      .eq-bar:nth-child(19) { --dur:.53s; height:34px; animation-delay:.21s }
+      .eq-bar:nth-child(20) { --dur:.45s; height:18px; animation-delay:.04s }
+      @keyframes eqBounce {
+        from { transform: scaleY(0.15); }
+        to   { transform: scaleY(1); }
+      }
+      /* Progress */
+      .loader-progress-wrap {
+        width: min(280px, 60vw); position: relative; z-index: 2;
+        animation: loaderFadeUp 0.6s 0.8s ease both;
+      }
+      .loader-progress-track {
+        width: 100%; height: 2px;
+        background: rgba(255,255,255,0.08); border-radius: 1px; overflow: hidden;
+      }
+      .loader-progress-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, #ff3c3c, #ff8c42);
+        border-radius: 1px; box-shadow: 0 0 10px #ff3c3c;
+        transition: width 0.05s linear;
+      }
+      .loader-pct {
+        position: absolute; right: 0; top: -1.4rem;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 0.75rem; letter-spacing: 0.15em;
+        color: rgba(255,255,255,0.3);
+      }
+      @keyframes loaderFadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+
+    <script>
+      (function() {
+        var fill = document.getElementById('loaderFill');
+        var pct  = document.getElementById('loaderPct');
+        var loader = document.getElementById('loader-chimba');
+        var progress = 0;
+        var interval = setInterval(function() {
+          // Simulate realistic loading pace
+          var inc = progress < 50  ? Math.random() * 6 + 2 :
+                    progress < 80  ? Math.random() * 4 + 1 :
+                    progress < 95  ? Math.random() * 2 + 0.5 : 0.2;
+          progress = Math.min(progress + inc, 99);
+          fill.style.width = progress + '%';
+          pct.textContent  = Math.floor(progress) + '%';
+        }, 80);
+
+        window.addEventListener('load', function() {
+          clearInterval(interval);
+          fill.style.width = '100%';
+          pct.textContent  = '100%';
+          setTimeout(function() {
+            loader.classList.add('loader-hidden');
+            setTimeout(function() { loader.style.display = 'none'; }, 450);
+          }, 350);
+        });
+      })();
+    </script>
+
+    
+
+      <!-- ===================== NAVBAR ===================== -->
+      <header class="section page-header" style="position:absolute;top:0;left:0;right:0;z-index:100;">
+        <div class="rd-navbar-wrap" style="position:relative">
+          <nav class="rd-navbar rd-navbar-classic"
+            data-layout="rd-navbar-fixed"
+            data-sm-layout="rd-navbar-fixed"
+            data-md-layout="rd-navbar-fixed"
+            data-md-device-layout="rd-navbar-fixed"
+            data-lg-layout="rd-navbar-fixed"
+            data-lg-device-layout="rd-navbar-fixed"
+            data-xl-layout="rd-navbar-static"
+            data-xl-device-layout="rd-navbar-static"
+            data-xxl-layout="rd-navbar-static"
+            data-xxl-device-layout="rd-navbar-static"
+            data-lg-stick-up-offset="46px"
+            data-xl-stick-up-offset="46px"
+            data-xxl-stick-up-offset="46px"
+            data-lg-stick-up="true"
+            data-xl-stick-up="true"
+            data-xxl-stick-up="true">
+            <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1" data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+            <div class="rd-navbar-main-outer">
+              <div class="rd-navbar-main">
+                <div class="rd-navbar-panel">
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <div class="rd-navbar-brand">
+                    <a class="brand" href="index.html"><img src="images/2.png" alt="" width="148" height="26"/></a>
+                  </div>
+                </div>
+                <div class="rd-navbar-main-element">
+                  <div class="rd-navbar-nav-wrap">
+                    <ul class="rd-navbar-nav nav-chimba">
+                      <li class="rd-nav-item active"><a class="rd-nav-link nav-btn-chimba" href="index.html"><span class="nav-label">INICIO</span></a></li>
+                     
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- ===================== ANIMATED GALLERY SLIDER HERO ===================== -->
+      <section id="slider-hero">
+
+        <!-- Hero text above slider -->
+        <div id="sl-hero-text">
+          <div class="sl-eyebrow">
+            <span class="ey-char">G</span><span class="ey-char">a</span><span class="ey-char">l</span><span class="ey-char">l</span><span class="ey-char">e</span><span class="ey-char">r</span><span class="ey-char">y</span><span class="ey-char ey-space"> </span><span class="ey-char">—</span><span class="ey-char ey-space"> </span><span class="ey-char">L</span><span class="ey-char">i</span><span class="ey-char">v</span><span class="ey-char">e</span><span class="ey-char ey-space"> </span><span class="ey-char">M</span><span class="ey-char">o</span><span class="ey-char">m</span><span class="ey-char">e</span><span class="ey-char">n</span><span class="ey-char">t</span><span class="ey-char">s</span>
+          </div>
+          <h1 id="heroTitle">
+            <span class="ht-word ht-word--white" id="htForta">
+              <span class="ht-char" style="--i:0">F</span><span class="ht-char" style="--i:1">O</span><span class="ht-char" style="--i:2">R</span><span class="ht-char" style="--i:3">T</span><span class="ht-char" style="--i:4">A</span>
+            </span>
+            <span class="ht-space"> </span>
+            <span class="ht-word ht-word--red" id="htLium">
+              <span class="ht-char" style="--i:5">L</span><span class="ht-char" style="--i:6">I</span><span class="ht-char" style="--i:7">U</span><span class="ht-char" style="--i:8">M</span>
+            </span>
+          </h1>
+          <div class="sl-sub" id="heroSub">From the booth to the streets — every moment is a vibe</div>
+        </div>
+
+        <!-- Counter -->
+        <div id="sl-header">
+          <div class="sl-logo"></div>
+          <div class="sl-counter">
+            <strong id="slCurrent">01</strong> / <span id="slTotal">09</span>
+          </div>
+        </div>
+
+        <!-- Track -->
+        <div class="sl-track" id="slTrack"></div>
+
+        <!-- Nav -->
+        <div id="sl-nav">
+          <button class="sl-btn" id="slPrev" aria-label="Anterior">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="sl-dots" id="slDots"></div>
+          <button class="sl-btn" id="slNext" aria-label="Siguiente">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Progress bar -->
+        <div id="sl-progress"></div>
+
+        <!-- Drag hint -->
+        <div class="sl-hint" id="slHint">Drag ↔</div>
+      </section>
+
+      <!-- Gold particle cursor -->
+      <div id="sl-cursor">
+        <div class="cur-dot"></div>
+        <div class="cur-ring"></div>
+      </div>
+      <canvas id="particle-canvas"></canvas>
+
+      <!-- ===================== MY MAFIA AGENCY — PROMO SECTION ===================== -->
+
+      <!-- Canvas para partículas -->
+      <canvas id="mma-canvas"></canvas>
+
+      <section id="mma-promo">
+
+        <!-- Fila superior: número grande decorativo -->
+        <div class="mma-bg-number" aria-hidden="true">WEB</div>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="mma-wrap">
+
+          <!-- HEADLINE CINEMATOGRÁFICO -->
+          <div class="mma-hero-text" id="mmaHero">
+            <div class="mma-agency-badge">
+              <span class="mma-badge-dot"></span>
+              K-RAMELO
+              <span class="mma-badge-dot"></span>
+            </div>
+
+            <div class="mma-title-block">
+              <div class="mma-title-line" data-line="Tu sello."></div>
+              <div class="mma-title-line" data-line="Tu marca."></div>
+              <div class="mma-title-line mma-title-line--accent" data-line="Tu escenario digital."></div>
+            </div>
+
+            <div class="mma-sub-line">
+              <span class="mma-sub-dash"></span>
+              <span class="mma-sub-text">Diseño web para artistas que conquistan</span>
+            </div>
+          </div>
+
+          <!-- CARDS DE CONTENIDO -->
+          <div class="mma-cards" id="mmaCards">
+
+            <!-- Card principal: párrafos -->
+            <div class="mma-card mma-card--main">
+              <div class="mma-card-glow"></div>
+              <div class="mma-card-border-top"></div>
+              <div class="mma-card-inner">
+                <p class="mma-lead">Si eres cantante, artista o músico, ya no basta con solo redes sociales!</p>
+                <p>Necesitas un espacio profesional que hable por ti, muestre tu talento y abra puertas a nuevas oportunidades!</p>
+                <p>En My Mafia Agency diseñamos tu páginas web portafolio para cantantes que impacta y conquista.</p>
+                <p>Perfectas para mostrar tu portafolio, tus videoclips, tu agenda y contar tu historia para conectar con la gente.</p>
+                <p class="mma-closing">Porque los escenarios han cambiado… y tu web será el próximo.</p>
+              </div>
+            </div>
+
+            <!-- Card beneficios -->
+            <div class="mma-card mma-card--benefits">
+              <div class="mma-card-glow mma-card-glow--2"></div>
+              <div class="mma-card-border-top"></div>
+              <div class="mma-card-inner">
+                <div class="mma-benefits-header">
+                  <span class="mma-benefits-icon">▲</span> Por qué importa
+                </div>
+                <ul class="mma-benefits">
+                  <li class="mma-benefit">
+                    <div class="mma-benefit-num">01</div>
+                    <div class="mma-benefit-text">Te posiciona como artista profesional.</div>
+                  </li>
+                  <li class="mma-benefit">
+                    <div class="mma-benefit-num">02</div>
+                    <div class="mma-benefit-text">Aumenta tus posibilidades de ser contratado.</div>
+                  </li>
+                  <li class="mma-benefit">
+                    <div class="mma-benefit-num">03</div>
+                    <div class="mma-benefit-text">Presencia online seria, única y controlada por ti.</div>
+                  </li>
+                  <li class="mma-benefit">
+                    <div class="mma-benefit-num">04</div>
+                    <div class="mma-benefit-text">Te diferencia de quienes solo usan Instagram o TikTok.</div>
+                  </li>
+                  <li class="mma-benefit">
+                    <div class="mma-benefit-num">05</div>
+                    <div class="mma-benefit-text">Es tu carta de presentación ante el mundo.</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Línea de energía inferior -->
+        <div class="mma-energy-line">
+          <div class="mma-energy-fill" id="mmaEnergy"></div>
+        </div>
+
+      </section>
+
+      <style>
+        /* ══════════════════════════════════════
+           MMA PROMO — DISEÑO CINEMATOGRÁFICO
+        ══════════════════════════════════════ */
+
+        #mma-canvas {
+          position: absolute;
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0.45;
+        }
+
+        #mma-promo {
+          position: relative;
+          background: #03030a;
+          overflow: hidden;
+          padding: 100px 0 0;
+          z-index: 1;
+        }
+
+        /* Número gigante de fondo */
+        .mma-bg-number {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -50%);
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: clamp(18rem, 35vw, 32rem);
+          letter-spacing: -0.02em;
+          color: transparent;
+          -webkit-text-stroke: 1px rgba(255,60,60,0.06);
+          pointer-events: none;
+          user-select: none;
+          line-height: 1;
+          white-space: nowrap;
+          z-index: 0;
+        }
+
+        .mma-wrap {
+          position: relative;
+          z-index: 2;
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 0 40px 80px;
+          display: flex;
+          flex-direction: column;
+          gap: 70px;
+        }
+
+        /* ── HERO TEXT ── */
+        .mma-hero-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2rem;
+          text-align: center;
+        }
+
+        .mma-agency-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.8rem;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.62rem;
+          letter-spacing: 0.45em;
+          text-transform: uppercase;
+          color: rgba(255,60,60,0.8);
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .mma-badge-dot {
+          width: 4px; height: 4px;
+          background: #ff3c3c;
+          border-radius: 50%;
+          box-shadow: 0 0 8px #ff3c3c;
+          animation: badgePulse 1.8s ease-in-out infinite;
+        }
+        .mma-badge-dot:last-child { animation-delay: 0.9s; }
+        @keyframes badgePulse {
+          0%,100% { opacity: 1; transform: scale(1); }
+          50%      { opacity: 0.3; transform: scale(0.5); }
+        }
+
+        /* Título con reveal por línea */
+        .mma-title-block {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.1em;
+          overflow: hidden;
+        }
+
+        .mma-title-line {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: clamp(3.5rem, 9vw, 8.5rem);
+          letter-spacing: 0.06em;
+          line-height: 0.95;
+          color: rgba(240,236,228,0.92);
+          overflow: hidden;
+          clip-path: inset(0 100% 0 0);
+          transition: clip-path 1s cubic-bezier(0.16,1,0.3,1);
+          white-space: nowrap;
+        }
+        .mma-title-line--accent {
+          color: #ff3c3c;
+          text-shadow: 0 0 60px rgba(255,60,60,0.4), 0 0 120px rgba(255,60,60,0.15);
+          font-size: clamp(2.2rem, 6vw, 5.5rem);
+        }
+        .mma-title-line.revealed {
+          clip-path: inset(0 0% 0 0);
+        }
+
+        .mma-sub-line {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          opacity: 0;
+          transform: translateY(8px);
+          transition: opacity 0.7s 0.9s ease, transform 0.7s 0.9s ease;
+        }
+        .mma-sub-dash {
+          display: block;
+          width: 36px; height: 1px;
+          background: linear-gradient(90deg, transparent, #ff3c3c);
+        }
+        .mma-sub-text {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.78rem;
+          font-weight: 300;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(240,236,228,0.35);
+        }
+
+        /* ── CARDS ── */
+        .mma-cards {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 24px;
+        }
+
+        .mma-card {
+          position: relative;
+          background: rgba(255,255,255,0.025);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 2px;
+          overflow: hidden;
+          opacity: 0;
+          transform: perspective(800px) rotateX(15deg) translateY(50px);
+          transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+                      transform 0.9s cubic-bezier(0.16,1,0.3,1),
+                      border-color 0.3s ease,
+                      box-shadow 0.3s ease;
+        }
+        .mma-card:hover {
+          border-color: rgba(255,60,60,0.2);
+          box-shadow: 0 0 40px rgba(255,60,60,0.06), inset 0 0 40px rgba(255,60,60,0.02);
+        }
+        .mma-card--benefits {
+          transition-delay: 0.15s;
+        }
+        .mma-card.revealed {
+          opacity: 1;
+          transform: perspective(800px) rotateX(0deg) translateY(0);
+        }
+
+        /* Glow interno de la card */
+        .mma-card-glow {
+          position: absolute;
+          top: -60px; left: -60px;
+          width: 200px; height: 200px;
+          background: radial-gradient(ellipse, rgba(255,60,60,0.08), transparent 70%);
+          pointer-events: none;
+          filter: blur(20px);
+          animation: glowFloat 5s ease-in-out infinite;
+        }
+        .mma-card-glow--2 {
+          top: auto; bottom: -60px; left: auto; right: -60px;
+          animation-delay: -2.5s;
+        }
+        @keyframes glowFloat {
+          0%,100% { transform: translate(0,0); }
+          50%      { transform: translate(20px, 15px); }
+        }
+
+        /* Línea superior de la card con efecto fill */
+        .mma-card-border-top {
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #ff3c3c 40%, #ff8c42 60%, transparent);
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.8s 0.4s cubic-bezier(0.16,1,0.3,1);
+          box-shadow: 0 0 12px rgba(255,60,60,0.6);
+        }
+        .mma-card.revealed .mma-card-border-top {
+          transform: scaleX(1);
+        }
+
+        .mma-card-inner {
+          padding: 36px 40px;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Texto de la card principal */
+        .mma-card--main .mma-card-inner p {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.87rem;
+          font-weight: 300;
+          line-height: 1.8;
+          color: rgba(240,236,228,0.55);
+          margin: 0 0 0.8rem 0;
+        }
+        .mma-card--main .mma-card-inner .mma-lead {
+          font-size: 1rem;
+          font-weight: 400;
+          color: rgba(240,236,228,0.85);
+          margin-bottom: 1.2rem;
+        }
+        .mma-card--main .mma-card-inner .mma-closing {
+          margin-top: 1rem;
+          font-style: italic;
+          color: rgba(240,236,228,0.7);
+          padding-left: 1rem;
+          border-left: 2px solid rgba(255,60,60,0.4);
+        }
+
+        /* Beneficios */
+        .mma-benefits-header {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.58rem;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: rgba(255,60,60,0.7);
+          margin-bottom: 1.8rem;
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+        }
+        .mma-benefits-icon {
+          font-size: 0.5rem;
+          animation: iconBlink 2s step-end infinite;
+        }
+        @keyframes iconBlink {
+          0%,100% { opacity: 1; } 50% { opacity: 0; }
+        }
+
+        .mma-benefits {
+          list-style: none;
+          margin: 0; padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+
+        .mma-benefit {
+          display: flex;
+          align-items: baseline;
+          gap: 1.2rem;
+          padding: 1rem 0;
+          border-bottom: 1px solid rgba(255,255,255,0.04);
+          transform: translateX(-20px);
+          opacity: 0;
+          transition: color 0.3s ease, transform 0.3s ease,
+                      border-color 0.3s ease, opacity 0s;
+        }
+        .mma-benefit:last-child { border-bottom: none; }
+        .mma-benefit:hover {
+          border-bottom-color: rgba(255,60,60,0.2);
+        }
+        .mma-benefit:hover .mma-benefit-num {
+          color: #ff3c3c;
+          text-shadow: 0 0 12px rgba(255,60,60,0.6);
+        }
+        .mma-benefit:hover .mma-benefit-text {
+          color: rgba(240,236,228,0.9);
+          transform: translateX(6px);
+        }
+        .mma-card.revealed .mma-benefit {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .mma-card.revealed .mma-benefit:nth-child(1) { transition: opacity 0.5s 0.5s ease, transform 0.5s 0.5s cubic-bezier(0.16,1,0.3,1), color 0.3s ease, border-color 0.3s ease; }
+        .mma-card.revealed .mma-benefit:nth-child(2) { transition: opacity 0.5s 0.62s ease, transform 0.5s 0.62s cubic-bezier(0.16,1,0.3,1), color 0.3s ease, border-color 0.3s ease; }
+        .mma-card.revealed .mma-benefit:nth-child(3) { transition: opacity 0.5s 0.74s ease, transform 0.5s 0.74s cubic-bezier(0.16,1,0.3,1), color 0.3s ease, border-color 0.3s ease; }
+        .mma-card.revealed .mma-benefit:nth-child(4) { transition: opacity 0.5s 0.86s ease, transform 0.5s 0.86s cubic-bezier(0.16,1,0.3,1), color 0.3s ease, border-color 0.3s ease; }
+        .mma-card.revealed .mma-benefit:nth-child(5) { transition: opacity 0.5s 0.98s ease, transform 0.5s 0.98s cubic-bezier(0.16,1,0.3,1), color 0.3s ease, border-color 0.3s ease; }
+
+        .mma-benefit-num {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 1.1rem;
+          letter-spacing: 0.05em;
+          color: rgba(255,60,60,0.25);
+          min-width: 28px;
+          transition: color 0.3s ease, text-shadow 0.3s ease;
+          line-height: 1;
+        }
+        .mma-benefit-text {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 0.84rem;
+          font-weight: 300;
+          color: rgba(240,236,228,0.55);
+          line-height: 1.5;
+          transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Línea de energía inferior */
+        .mma-energy-line {
+          height: 3px;
+          background: rgba(255,255,255,0.04);
+          position: relative;
+          overflow: hidden;
+        }
+        .mma-energy-fill {
+          height: 100%;
+          width: 0%;
+          background: linear-gradient(90deg, #ff3c3c, #ff8c42, #ff3c3c);
+          background-size: 200% 100%;
+          box-shadow: 0 0 20px #ff3c3c;
+          transition: width 1.2s 0.3s cubic-bezier(0.16,1,0.3,1);
+          animation: energyShimmer 2s linear infinite;
+        }
+        @keyframes energyShimmer {
+          0%   { background-position: 0% 0%; }
+          100% { background-position: 200% 0%; }
+        }
+        .mma-energy-fill.active { width: 100%; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+          .mma-cards { grid-template-columns: 1fr; }
+          .mma-bg-number { font-size: 45vw; }
+          .mma-wrap { padding: 0 20px 60px; gap: 50px; }
+        }
+
+        /* Active states cuando el hero es visible */
+        #mma-promo.in-view .mma-agency-badge { opacity: 1; transform: translateY(0); }
+        #mma-promo.in-view .mma-sub-line     { opacity: 1; transform: translateY(0); }
+      </style>
+
+      <script>
+      (function() {
+
+        // ── PARTÍCULAS EN CANVAS ──
+        var canvas = document.getElementById('mma-canvas');
+        var section = document.getElementById('mma-promo');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+
+        function resizeCanvas() {
+          var r = section.getBoundingClientRect();
+          canvas.width  = r.width;
+          canvas.height = r.height;
+          canvas.style.width  = r.width  + 'px';
+          canvas.style.height = r.height + 'px';
+          canvas.style.position = 'absolute';
+          canvas.style.top = section.offsetTop + 'px';
+          canvas.style.left = '0';
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        for (var i = 0; i < 55; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.4 + 0.3,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            alpha: Math.random() * 0.5 + 0.1,
+            pulse: Math.random() * Math.PI * 2,
+            red: Math.random() > 0.7,
+          });
+        }
+
+        function drawParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(function(p) {
+            p.x += p.vx; p.y += p.vy;
+            p.pulse += 0.02;
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+            var a = p.alpha * (0.6 + 0.4 * Math.sin(p.pulse));
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.red
+              ? 'rgba(255,60,60,' + a + ')'
+              : 'rgba(240,236,228,' + a * 0.4 + ')';
+            ctx.shadowBlur = p.red ? 8 : 0;
+            ctx.shadowColor = '#ff3c3c';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          });
+          requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        // ── SCROLL REVEAL ──
+        var hero   = document.getElementById('mmaHero');
+        var cards  = document.getElementById('mmaCards');
+        var energy = document.getElementById('mmaEnergy');
+        var lines  = document.querySelectorAll('.mma-title-line');
+        var cardEls = document.querySelectorAll('.mma-card');
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+
+            section.classList.add('in-view');
+
+            // Revelar líneas de título escalonadas
+            lines.forEach(function(line, i) {
+              setTimeout(function() {
+                line.classList.add('revealed');
+              }, 200 + i * 180);
+            });
+
+            // Revelar cards
+            cardEls.forEach(function(card, i) {
+              setTimeout(function() {
+                card.classList.add('revealed');
+              }, 600 + i * 160);
+            });
+
+            // Energía inferior
+            setTimeout(function() {
+              energy.classList.add('active');
+            }, 500);
+
+            observer.disconnect();
+          });
+        }, { threshold: 0.12 });
+
+        observer.observe(section);
+
+        // ── TILT 3D SUAVE EN HOVER ──
+        var wrap = section.querySelector('.mma-wrap');
+        section.addEventListener('mousemove', function(e) {
+          if (!section.classList.contains('in-view')) return;
+          var rect = section.getBoundingClientRect();
+          var dx = ((e.clientX - rect.left) / rect.width  - 0.5) * 5;
+          var dy = ((e.clientY - rect.top)  / rect.height - 0.5) * 3;
+          wrap.style.transform = 'perspective(1400px) rotateY(' + dx + 'deg) rotateX(' + (-dy) + 'deg)';
+          wrap.style.transition = 'transform 0.12s ease';
+        });
+        section.addEventListener('mouseleave', function() {
+          wrap.style.transform = 'perspective(1400px) rotateY(0deg) rotateX(0deg)';
+          wrap.style.transition = 'transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+        });
+
+      })();
+      </script>
+
+      
+       
+            </div>
+          </div>
+        </div>
+      </section>
+
+   <div style="display: flex; justify-content: center; margin: 20px 0;">
+  <iframe 
+    width="640" 
+    height="360" 
+    src="https://www.youtube.com/embed/CvB-tffIX_o?si=Rh5HW8zRPQvPMBjC" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===================== FOOTER ===================== -->
+      <footer class="section footer-classic bg-default">
+        <div class="container">
+          <div class="row row-15">
+            <div class="col-sm-6">
+              <p class="rights">
+                <span>© 2026 Derechos reservados por el equipo</span><span>&nbsp;</span><span>&copy;&nbsp;</span>
+                <span class="copyright-year"></span><span>&nbsp;</span>
+                <span>\&nbsp;</span>e producción y logística
+                
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div><!-- /.page -->
+    <div class="snackbars" id="form-output-global"></div>
+
+    <!-- Original scripts -->
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- ===================== SLIDER SCRIPT ===================== -->
+    <script>
+    (function() {
+      const slides = [
+        { img: 'images/1.JPG', cat: 'Main Stage', title: 'Electric Nights', desc: 'The crowd erupts as the bass drops and the lights ignite the sky.' },
+        { img: 'images/2.JPG', cat: 'Underground', title: 'Through The Glass', desc: 'A different perspective on the scene — raw and unfiltered.' },
+        { img: 'images/3.JPG', cat: 'Streets', title: 'Urban Silence', desc: 'Hood up, head down, ready to take over the city.' },
+        { img: 'images/4.JPG', cat: 'K-Ramelo', title: 'King Drop', desc: 'The new hoodie collection — made for the underground royalty.' },
+        { img: 'images/5.jpg', cat: 'London', title: 'Skyline', desc: 'High above Canary Wharf, the grind never stops.' },
+        { img: 'images/6.jpg', cat: 'K-Ramelo', title: 'Crown Detail', desc: 'Every stitch tells a story. Every drop is a statement.' },
+        { img: 'images/7.JPG', cat: 'Night Sky', title: 'Above The Clouds', desc: 'Low angle, dark skies, and a plane cutting through the night.' },
+        { img: 'images/8.JPG', cat: 'Rooftop', title: 'Night City', desc: 'London lights below, the K-Ramelo beanie on top.' },
+        { img: 'images/9.jpg', cat: 'Live Set', title: 'Behind The Decks', desc: 'Two DJs, one booth, and a crowd that never wants it to end.' },
+      ];
+
+      let current = 0;
+      const autoplayDuration = 4500;
+      let elapsed = 0, progressInterval, isDragging = false, startX = 0, dragDelta = 0, dragMoved = false;
+
+      const hero = document.getElementById('slider-hero');
+      const track = document.getElementById('slTrack');
+      const dotsEl = document.getElementById('slDots');
+      const progressBar = document.getElementById('sl-progress');
+      const cCurrent = document.getElementById('slCurrent');
+      const cTotal = document.getElementById('slTotal');
+      const hint = document.getElementById('slHint');
+      const cursor = document.getElementById('sl-cursor');
+
+      cTotal.textContent = String(slides.length).padStart(2,'0');
+
+      // Build slides
+      slides.forEach((s, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'sl-slide' + (i === 0 ? ' active' : '');
+        slide.innerHTML = `
+          <img src="${s.img}" alt="${s.title}" loading="${i===0?'eager':'lazy'}">
+          <div class="sl-overlay"></div>
+          <div class="sl-line"></div>
+          <div class="sl-info">
+            <div class="sl-cat">${s.cat}</div>
+            <div class="sl-title">${s.title}</div>
+            <div class="sl-desc">${s.desc}</div>
+          </div>`;
+        track.appendChild(slide);
+
+        const dot = document.createElement('div');
+        dot.className = 'sl-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+      });
+
+      const slideEls = [...track.querySelectorAll('.sl-slide')];
+      const dotEls = [...dotsEl.querySelectorAll('.sl-dot')];
+
+      function updateTrack(instant) {
+        const sw = slideEls[0].offsetWidth;
+        const gap = 32;
+        const offset = current * (sw + gap);
+        track.style.transition = instant ? 'none' : 'transform 0.72s cubic-bezier(0.16,1,0.3,1)';
+        track.style.transform = `translateX(calc(50vw - ${sw/2}px - ${offset}px))`;
+        slideEls.forEach((el, i) => el.classList.toggle('active', i === current));
+        dotEls.forEach((d, i) => d.classList.toggle('active', i === current));
+        cCurrent.textContent = String(current + 1).padStart(2,'0');
+      }
+
+      function goTo(idx) {
+        current = (idx + slides.length) % slides.length;
+        updateTrack(false);
+        resetProgress();
+      }
+
+      function startProgress() {
+        elapsed = 0;
+        clearInterval(progressInterval);
+        progressInterval = setInterval(() => {
+          elapsed += 50;
+          progressBar.style.width = (elapsed / autoplayDuration * 100) + '%';
+          if (elapsed >= autoplayDuration) goTo(current + 1);
+        }, 50);
+      }
+
+      function resetProgress() {
+        elapsed = 0;
+        clearInterval(progressInterval);
+        progressBar.style.width = '0%';
+        startProgress();
+      }
+
+      document.getElementById('slPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('slNext').addEventListener('click', () => goTo(current + 1));
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
+      });
+
+      // Drag
+      function dragStart(x) { isDragging = true; startX = x; dragMoved = false; cursor.classList.add('drag'); track.style.transition = 'none'; }
+      function dragMove(x) {
+        if (!isDragging) return;
+        dragDelta = x - startX;
+        if (Math.abs(dragDelta) > 5) dragMoved = true;
+        const sw = slideEls[0].offsetWidth, gap = 32, base = current * (sw + gap);
+        track.style.transform = `translateX(calc(50vw - ${sw/2}px - ${base}px + ${dragDelta}px))`;
+      }
+      function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        cursor.classList.remove('drag');
+        if (dragMoved) {
+          if (dragDelta < -60) goTo(current + 1);
+          else if (dragDelta > 60) goTo(current - 1);
+          else updateTrack(false);
+          hint.classList.add('hidden');
+        }
+        dragDelta = 0;
+      }
+
+      hero.addEventListener('mousedown', e => dragStart(e.clientX));
+      window.addEventListener('mousemove', e => dragMove(e.clientX));
+      window.addEventListener('mouseup', dragEnd);
+      hero.addEventListener('touchstart', e => dragStart(e.touches[0].clientX), {passive:true});
+      window.addEventListener('touchmove', e => dragMove(e.touches[0].clientX), {passive:true});
+      window.addEventListener('touchend', dragEnd);
+
+      // Cursor position
+      window.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      updateTrack(true);
+      startProgress();
+      window.addEventListener('resize', () => updateTrack(true));
+    })();
+    </script>
+
+    <!-- ===================== GOLD PARTICLE CURSOR SCRIPT ===================== -->
+    <script>
+    (function() {
+      const cur = document.getElementById('sl-cursor');
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let mx = -200, my = -200;
+      let particles = [];
+
+      // Resize canvas
+      function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Track mouse
+      window.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cur.style.left = mx + 'px';
+        cur.style.top  = my + 'px';
+        // Spawn particles on move
+        for (let i = 0; i < 3; i++) spawnParticle(mx, my);
+      });
+
+      // Click effects
+      window.addEventListener('mousedown', () => {
+        cur.classList.add('clicking');
+        for (let i = 0; i < 18; i++) spawnParticle(mx, my, true);
+      });
+      window.addEventListener('mouseup', () => cur.classList.remove('clicking'));
+
+      // Hover on interactive elements
+      document.addEventListener('mouseover', e => {
+        if (e.target.closest('a, button, [data-rd-navbar-toggle]')) cur.classList.add('hovering');
+        else cur.classList.remove('hovering');
+      });
+
+      // Gold color palette
+      const GOLDS = [
+        'rgba(255,215,0,',
+        'rgba(255,190,0,',
+        'rgba(255,235,100,',
+        'rgba(255,165,0,',
+        'rgba(255,245,180,',
+      ];
+
+      function spawnParticle(x, y, burst = false) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = burst ? (Math.random() * 5 + 2) : (Math.random() * 2.5 + 0.5);
+        const size  = burst ? (Math.random() * 5 + 2) : (Math.random() * 3 + 1);
+        const color = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed * (burst ? 1 : 0.4),
+          vy: Math.sin(angle) * speed * (burst ? 1 : 0.4) - (burst ? 0 : 0.8),
+          size,
+          alpha: 1,
+          decay: burst ? (Math.random() * 0.025 + 0.012) : (Math.random() * 0.03 + 0.018),
+          color,
+          spin: (Math.random() - 0.5) * 0.3,
+          shape: Math.random() > 0.5 ? 'circle' : 'diamond',
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles = particles.filter(p => p.alpha > 0.01);
+
+        particles.forEach(p => {
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.spin * Date.now() * 0.01);
+
+          if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color + p.alpha + ')';
+            ctx.shadowColor = '#FFD700';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+          } else {
+            // Diamond shape
+            ctx.beginPath();
+            ctx.moveTo(0, -p.size);
+            ctx.lineTo(p.size * 0.6, 0);
+            ctx.lineTo(0, p.size);
+            ctx.lineTo(-p.size * 0.6, 0);
+            ctx.closePath();
+            ctx.fillStyle = p.color + p.alpha + ')';
+            ctx.shadowColor = '#FFD700';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+          }
+          ctx.restore();
+
+          // Update
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.06; // gravity
+          p.vx *= 0.97;
+          p.alpha -= p.decay;
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    })();
+    </script>
+    <!-- Nav glow data-text setup -->
+    <script>
+      document.querySelectorAll('.nav-label').forEach(el => {
+        el.setAttribute('data-text', el.textContent);
+      });
+    </script>
+  
+    <script>
+    // Asignar delays a las letras del eyebrow
+    (function() {
+      document.querySelectorAll('.ey-char').forEach(function(el, i) {
+        el.style.animationDelay = (0.1 + i * 0.04) + 's';
+      });
+    })();
+    </script>
+  </body>
+</html>
